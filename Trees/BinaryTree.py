@@ -142,7 +142,7 @@ class BinaryTree():
         Implement this function by modifying the _print functions above.
         '''
         if start:
-            traversal = traversal.append(start.value)
+            traversal.append(start.value)
             traversal = self.preorder(start.left, traversal)
             traversal = self.preorder(start.right, traversal)
         return traversal
@@ -153,9 +153,13 @@ class BinaryTree():
         Implement this function by modifying the _print functions above.
         '''
         if start:
+            print("a: traversal= ", traversal)
             traversal = self.inorder(start.left, traversal)
-            traversal = traversal.append(start.value)
+            print("b: traversal= ", traversal)
+            traversal.append(start.value)
+            print("c: traversal= ", traversal)
             traversal = self.inorder(start.right, traversal)
+            print("d: traversal= ", traversal)
         return traversal
 
     def postorder(self, start, traversal):
@@ -166,7 +170,7 @@ class BinaryTree():
         if start:
             traversal = self.postorder(start.left, traversal)
             traversal = self.postorder(start.right, traversal)
-            traversal = traversal.append(start.value)
+            traversal.append(start.value)
         return traversal
 
     def __len__(self):
@@ -228,8 +232,8 @@ class BinaryTree():
         '''
         if node is None:
             return -1
-        left_height = BinaryTree._height(node)
-        right_height = BinaryTree._height(node)
+        left_height = BinaryTree._height(node.left)
+        right_height = BinaryTree._height(node.right)
 
         return 1 + max(left_height, right_height)
 

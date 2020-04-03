@@ -80,6 +80,12 @@ class BinaryTree():
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        #root, left subtree, right subtree
+        if start:
+            traversal += (str(start.value) + "-")
+            traversal = self.preorder_print(start.left, traversal)
+            traversal = self.preorder_print(start.right, traversal)
+        return traversal
 
     def inorder_print(self, start, traversal):
         '''
@@ -87,6 +93,12 @@ class BinaryTree():
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        #left subtree, root, right subtree
+        if start:
+            traversal = self.inorder_print(start.left, traversal)
+            traversal += (str(start.value) + "-")
+            traversal = self.inorder_print(start.right, traversal)
+        return traversal
 
     def postorder_print(self, start, traversal):
         '''
@@ -94,7 +106,12 @@ class BinaryTree():
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
-
+        #left, right root
+        if start:
+            traversal = self.postorder_print(start.left, traversal)
+            traversal = self.postorder_print(start.right, traversal)
+            traversal += (str(start.value) + "-")
+        return traversal
 
     def to_list(self, traversal_type):
         '''
@@ -124,18 +141,33 @@ class BinaryTree():
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal = traversal.append(start.value)
+            traversal = self.preorder(start.left, traversal)
+            traversal = self.preorder(start.right, traversal)
+        return traversal
 
     def inorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal = self.inorder(start.left, traversal)
+            traversal = traversal.append(start.value)
+            traversal = self.inorder(start.right, traversal)
+        return traversal
 
     def postorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal = self.postorder(start.left, traversal)
+            traversal = self.postorder(start.right, traversal)
+            traversal = traversal.append(start.value)
+        return traversal
 
     def __len__(self):
         '''
@@ -153,6 +185,20 @@ class BinaryTree():
         Implement this function. 
         The lecture notes videos provide the exact code you need.
         '''
+        if self.root is None:
+            return 0
+        stack = Stack()
+        stack.push(self.root)
+        size = 1
+        while stack:
+            node = stack.pop()
+            if node.left:
+                size += 1 
+                stack.push(node.left)
+            if node.right:
+                size += 1
+                stack.push(node.right)
+        return size
 
     def size_(self, node):
         '''
@@ -160,6 +206,10 @@ class BinaryTree():
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+        if node is None:
+            return 0
+        return 1 + self.size_(node.left) + self.size_(node.right)
+
 
     def height(self):
         return BinaryTree._height(self.root)
@@ -176,3 +226,20 @@ class BinaryTree():
         This makes it inconvenient to use,
         and so you should implement it as a static method.
         '''
+        if node is None:
+            return -1
+        left_height = BinaryTree._height(node)
+        right_height = BinaryTree._height(node)
+
+        return 1 + max(left_height, right_height)
+
+tree = BinaryTree(1)
+tree.root.left = Node(2)
+tree.root.right = Node(3)
+tree.root.left.left = Node(4)
+tree.root.left.right = Node(5)
+tree.root.right.left = Node(6)
+tree.root.right.right = Node(7)
+print(tree.print_tree("preorder"))
+print(tree.size_(tree.root))
+

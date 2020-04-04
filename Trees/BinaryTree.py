@@ -246,4 +246,5 @@ tree.root.right.left = Node(6)
 tree.root.right.right = Node(7)
 print(tree.print_tree("preorder"))
 print(tree.size_(tree.root))
-
+print("hello world")
+            print("a: traversal= ", traversal)

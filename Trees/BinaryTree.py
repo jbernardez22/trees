@@ -191,8 +191,8 @@ class BinaryTree():
         '''
         if self.root is None:
             return 0
-        stack = Stack()
-        stack.push(self.root)
+        stack = []
+        stack.append(self.root)
         size = 1
         while stack:
             node = stack.pop()

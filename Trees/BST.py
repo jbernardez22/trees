@@ -5,7 +5,7 @@ The functions in this file are considerably harder than the functions in the Bin
 
 from Trees.BinaryTree import BinaryTree, Node
 
-class BST():
+class BST(BinaryTree):
     '''
     FIXME:
     BST is currently not a subclass of BinaryTree.

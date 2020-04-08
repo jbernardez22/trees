@@ -48,28 +48,31 @@ class BST(BinaryTree):
         are actually working.
         '''
         if self.root:
-            return BST._is_bst_satisfied(self.root, self.root.value)
+            return BST._is_bst_satisfied(self.root)
         return True
 
     @staticmethod
-    def _is_bst_satisfied(node, value):
+    def _is_bst_satisfied(node):
         '''
         FIXME:
         Implement this method.
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
+        print( "value  =  ", node.value)
+        is_left_satisfied = True
+        is_right_satisfied = True
         if node.left:
-            if value > node.left.value:
-                return BST._is_bst_satisfied(node.left, node.left.value)
+            if node.value > node.left.value:
+                is_left_satisfied  =  BST._is_bst_satisfied(node.left)
             else:
-                return False
+                is_left_satisfied = False
         if node.right:
-            if value < node.right.value:
-                return BST._is_bst_satisfied(node.right, node.right.value)
+            if node.value < node.right.value:
+                is_right_satisfied  = BST._is_bst_satisfied(node.right)
             else:
-                return False
-        return True
+                is_right_satisfied = False
+        return is_left_satisfied and is_right_satisfied
 
 
     def insert(self, value):
@@ -163,10 +166,20 @@ class BST(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
-        if self.left:
-            return find_smallest(self.left)
-        return self.left
+        if self.root is None:
+            raise ValueError("nothing in tree")
+        else:
+            return BST._find_smallest(node)
+
+    
         #is this the right way to go about it also find_largest?
+        
+    def _find_smallest(node):
+        assert node is not None
+        if node.left is None:
+            return node.value
+        else:
+            return BST._find_smallest(node.left)
 
 #create _find_smalles
 
@@ -214,3 +227,12 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
+
+bst = BST()
+bst.root = Node(0)
+bst.root.left = Node(-2)
+bst.root.left.left = Node(-3)
+bst.root.left.right = Node(-1)
+bst.root.right = Node(2)
+bst.root.right.left = Node(1)
+bst.root.right.right = Node(-3)

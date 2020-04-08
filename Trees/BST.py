@@ -19,7 +19,8 @@ class BST(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the BST.
         '''
-        super().__init__(root)
+        super().__init__()
+        #this is the same as BinaryTree.__init__(self)
 
     def __repr__(self):
         '''
@@ -47,7 +48,7 @@ class BST(BinaryTree):
         are actually working.
         '''
         if self.root:
-            return BST._is_bst_satisfied(self.root)
+            return BST._is_bst_satisfied(self.root, self.root.value)
         return True
 
     @staticmethod
@@ -71,7 +72,6 @@ class BST(BinaryTree):
         return True
 
 
-
     def insert(self, value):
         '''
         Inserts value into the BST.
@@ -90,13 +90,14 @@ class BST(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        if value < node: 
+      #  if value < node, self.root.value:
+        if value < node.value:
             if node.left is None:
                 node.left = Node(value)
             else:
-                BST.insert(node.left)
+                BST._insert(node.left)
 
-        elif value > node:
+        elif value > node.value:
             if node.right is None:
                 node.right = Node(value)
             else:
@@ -113,8 +114,10 @@ class BST(BinaryTree):
         FIXME:
         Implement this function.
         '''
-       
-
+        #how do I test using pytest? 
+        #Can I use a forloop here? also confused on remove list, probably need to do rmeove first
+        for a in xs:
+            self.insert(a)  #I use  insert not _insert right? do i need to return something? 
 
     def __contains__(self, value):
         return self.find(value)
@@ -129,7 +132,6 @@ class BST(BinaryTree):
                 return True
         else:
             return False
-
 
     @staticmethod
     def _find(value, node):
@@ -146,7 +148,7 @@ class BST(BinaryTree):
         if value == node.value:
             return True
         else:
-            return False #why do i have this
+            return False
 
     def find_smallest(self):
         '''
@@ -164,7 +166,11 @@ class BST(BinaryTree):
         if self.left:
             return find_smallest(self.left)
         return self.left
+        #is this the right way to go about it also find_largest?
 
+#create _find_smalles
+
+#need wrapper to call the underscore version using .root
 
     def find_largest(self):
         '''
@@ -198,8 +204,8 @@ class BST(BinaryTree):
         Use a recursive helper function.
         '''
         self.root = BST._remove(self.root,value)
-
-
+        
+        
 
     def remove_list(self, xs):
         '''

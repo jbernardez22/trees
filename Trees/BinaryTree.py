@@ -153,13 +153,13 @@ class BinaryTree():
         Implement this function by modifying the _print functions above.
         '''
         if start:
-            print("a: traversal= ", traversal)
+           # print("a: traversal= ", traversal)
             traversal = self.inorder(start.left, traversal)
-            print("b: traversal= ", traversal)
+           # print("b: traversal= ", traversal)
             traversal.append(start.value)
-            print("c: traversal= ", traversal)
+          #  print("c: traversal= ", traversal)
             traversal = self.inorder(start.right, traversal)
-            print("d: traversal= ", traversal)
+           # print("d: traversal= ", traversal)
         return traversal
 
     def postorder(self, start, traversal):
@@ -244,5 +244,5 @@ tree.root.left.left = Node(4)
 tree.root.left.right = Node(5)
 tree.root.right.left = Node(6)
 tree.root.right.right = Node(7)
-print(tree.print_tree("preorder"))
-print(tree.size_(tree.root))
+#print(tree.print_tree("preorder"))
+#print(tree.size_(tree.root))

@@ -20,6 +20,9 @@ class BST(BinaryTree):
         then each element of xs needs to be inserted into the BST.
         '''
         super().__init__()
+        if xs is not None:
+            self.insert_list(xs)
+
         #this is the same as BinaryTree.__init__(self)
 
     def __repr__(self):
@@ -98,13 +101,13 @@ class BST(BinaryTree):
             if node.left is None:
                 node.left = Node(value)
             else:
-                BST._insert(node.left)
+                BST._insert(value, node.left)
 
         elif value > node.value:
             if node.right is None:
                 node.right = Node(value)
             else:
-                BST._insert(node.right)
+                BST._insert(value, node.right)
 
         else:
             print("value is already in tree")
@@ -169,7 +172,7 @@ class BST(BinaryTree):
         if self.root is None:
             raise ValueError("nothing in tree")
         else:
-            return BST._find_smallest(node)
+            return BST._find_smallest(self.root)
 
     
         #is this the right way to go about it also find_largest?

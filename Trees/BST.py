@@ -174,8 +174,8 @@ class BST(BinaryTree):
             return BST._find_smallest(self.root)
 
     
-        #is this the right way to go about it also find_largest?
-        
+    
+    @staticmethod
     def _find_smallest(node):
         assert node is not None
         if node.left is None:
@@ -183,9 +183,7 @@ class BST(BinaryTree):
         else:
             return BST._find_smallest(node.left)
 
-#create _find_smalles
 
-#need wrapper to call the underscore version using .root
 
     def find_largest(self):
         '''
@@ -196,9 +194,18 @@ class BST(BinaryTree):
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
         '''
-        if self.right:
-            return find_largest(self.right)
-        return self.right
+        if self.root is None:
+            raise ValueError("nothing in tree")
+        else:
+            return BST._find_largest(self.root)
+
+    @staticmethod
+    def  _find_largest(node):
+        assert node is not None
+        if node.right is None:
+            return node.value
+        else:
+            return BST._find_largest(node.right)
 
 
     def remove(self,value):
@@ -217,18 +224,42 @@ class BST(BinaryTree):
 
         HINT:
         Use a recursive helper function.
-        '''
+        ''' 
         self.root = BST._remove(self.root,value)
-        
-        
 
-    def remove_list(self, xs):
+    @staticmethod
+    def _remove(node, value):
+       # print("node=", node)
+        if node is None:
+            return
+        if node.value > value:
+            node.left = BST._remove(node.left, value)
+        elif node.value < value:
+            node.right =  BST._remove(node.right, value)
+        else:
+            if not node.left and not node.right:
+                return None
+            if node.left and not node.right:
+                return node.left
+            if node.right and not node.left:
+                return node.right
+        #    print("node.right =", node.right)
+            left_most = BST._find_smallest(node.right) 
+            #node.right.find_smallest() #is this the right way to call find_smallest?
+            node.value = left_most
+            node.right = BST._remove(node.right, node.value)
+        return node
+    
+    
+    def remove_list(self, xs): #does this look right? 
         '''
         Given a list xs, remove each element of xs from self.
 
         FIXME:
         Implement this function.
         '''
+        for a in xs:
+            self.remove(a)
 
 bst = BST()
 bst.root = Node(0)

@@ -62,7 +62,6 @@ class BST(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        print( "value  =  ", node.value)
         is_left_satisfied = True
         is_right_satisfied = True
         if node.left:
